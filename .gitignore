@@ -1,0 +1,42 @@
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+build/Release
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+# dotenv environment variable files
+.env*
+
+# gatsby files
+.cache/
+public
+
+# Yarn
+yarn-error.log
+# Yarn Integrity file
+.yarn-integrity
