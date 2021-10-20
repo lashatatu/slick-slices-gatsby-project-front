@@ -3,29 +3,28 @@ import path from "path";
 async function turnPizzasIntoPages({ graphql, actions }) {
   const pizzaTemplate = path.resolve("./src/templates/Pizza.js");
   const { data } = await graphql(`
-  query{
-  pizzas:allSanityPizza{
-  nodes{
-  name
-  slug{
-  current
-  }
-  }  
-  }
-  }
+    query {
+      pizzas: allSanityPizza {
+        nodes {
+          name
+          slug {
+            current
+          }
+        }
+      }
+    }
   `);
   console.log(data);
-  data.pizzas.nodes.forEach(pizza=>{
-    console.log('creating page for pizza name');
+  console.log(data);
+  data.pizzas.nodes.forEach((pizza) => {
     actions.createPage({
-      path:`pizza/${pizza.slug.current}`,
-      component:pizzaTemplate,
-      context:{
-        lasha:'is cool',
-        slug:pizza.slug.current
-      }
-    })
-  })
+      path: `pizza/${pizza.slug.current}`,
+      component: pizzaTemplate,
+      context: {
+        slug: pizza.slug.current,
+      },
+    });
+  });
 }
 
 export async function createPages(params) {
