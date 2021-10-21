@@ -25,7 +25,6 @@ export default function SinglePizzaPage({ data: { pizza } }) {
   );
 }
 
-// This needs to be dynamic based on the slug passed in via context in gatsby-node.js
 export const query = graphql`
   query($slug: String!) {
     pizza: sanityPizza(slug: { current: { eq: $slug } }) {

@@ -40,14 +40,12 @@ function SinglePizza({ pizza }) {
   );
 }
 
-const PizzaList = ({ pizzas }) => {
+export default function PizzaList({ pizzas }) {
   return (
     <PizzaGridStyles>
       {pizzas.map((pizza) => (
-        <SinglePizza pizza={pizza} key={pizza.id} />
+        <SinglePizza key={pizza.id} pizza={pizza} />
       ))}
     </PizzaGridStyles>
   );
-};
-
-export default PizzaList;
+}
