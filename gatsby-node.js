@@ -44,6 +44,7 @@ async function turnToppingsIntoPages ({ graphql, actions }) {
       component: toppingTemplate,
       context: {
         topping: topping.name,
+        toppingRegex: `/${topping.name}/i`,
       },
     });
   });
@@ -64,11 +65,12 @@ async function fetchBeersAndTurnIntoNodes ({ actions, createNodeId, createConten
         contentDigest: createContentDigest(beer),
       }
     }
+    actions.createNode({
+      ...beer,
+      ...nodeMeta,
+    })
   }
-  actions.createNode({
-    ...beer,
-    ...nodeMeta,
-  })
+
 }
 
 export async function sourceNodes (params) {
