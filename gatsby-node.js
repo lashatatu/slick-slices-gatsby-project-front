@@ -55,6 +55,7 @@ async function fetchBeersAndTurnIntoNodes ({ actions, createNodeId, createConten
   const beers = await res.json()
   console.log(beers);
   for ( const beer of beers ) {
+    if(!beer.rating.average) return
     const nodeMeta = {
       id: createNodeId(`beer-${beer.name}`),
       parent: null,
