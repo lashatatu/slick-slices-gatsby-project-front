@@ -53,9 +53,8 @@ async function turnToppingsIntoPages ({ graphql, actions }) {
 async function fetchBeersAndTurnIntoNodes ({ actions, createNodeId, createContentDigest }) {
   const res = await fetch('https://api.sampleapis.com/beers/ale')
   const beers = await res.json()
-  console.log(beers);
   for ( const beer of beers ) {
-    if(!beer.rating.average) return
+    if ( !beer.rating.average ) return
     const nodeMeta = {
       id: createNodeId(`beer-${beer.name}`),
       parent: null,
@@ -74,6 +73,38 @@ async function fetchBeersAndTurnIntoNodes ({ actions, createNodeId, createConten
 
 }
 
+async function turnSlicemastersIntoPages ({ graphql, actions }) {
+  const { data } = await graphql(`
+  query {
+    slicemasters:allSanityPerson{
+      totalCount
+      nodes {
+        name
+        id
+        slug  {
+          current
+        }
+      }
+    }
+  }
+`)
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE)
+  const pageCount = Math.ceil(data.slicemasters.totalCount / pageSize)
+  console.log(`there are ${data.slicemasters.totalCount} pages with ${pageSize}`);
+  Array.from({ length: pageCount }).forEach((_, i) => {
+    console.log(`Creating page ${i}`);
+    actions.createPage({
+      path: `/slicemasters/${i + 1}`,
+      component: path.resolve('./src/pages/slicemasters.js'),
+      context: {
+        skip: i * pageSize,
+        currentPage: i + 1,
+        pageSize,
+      }
+    })
+  })
+}
+
 export async function sourceNodes (params) {
   await Promise.all([fetchBeersAndTurnIntoNodes(params)])
 }
@@ -82,6 +113,7 @@ export async function createPages (params) {
   await Promise.all([
     turnPizzasIntoPages(params),
     turnToppingsIntoPages(params),
+    turnSlicemastersIntoPages(params)
   ]);
 }
 
