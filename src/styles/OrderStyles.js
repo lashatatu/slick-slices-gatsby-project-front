@@ -13,7 +13,7 @@ const OrderStyles = styled.form`
     gap: 1rem;
     align-content: start;
 
-    &.order &.menu {
+    &.order, &.menu {
       grid-column: span 1;
     }
   }
