@@ -1,5 +1,5 @@
-import path from "path";
-import fetch from "isomorphic-fetch";
+import path, { resolve } from 'path';
+import fetch from 'isomorphic-fetch';
 
 async function turnPizzasIntoPages({ graphql, actions }) {
   const pizzaTemplate = path.resolve("./src/templates/Pizza.js");
