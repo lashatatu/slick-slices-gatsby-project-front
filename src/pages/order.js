@@ -9,19 +9,31 @@ import OrderStyles from "../styles/OrderStyles";
 import MenuItemStyles from "../styles/MenuItemStyles";
 import usePizza from "../utils/usePizza";
 import PizzaOrder from "../components/PizzaOrder";
-import calculateOrderTotal from '../utils/calculateOrderTotal';
+import calculateOrderTotal from "../utils/calculateOrderTotal";
 
 export default function OrderPage({ data }) {
   const pizzas = data.pizzas.nodes;
   const { values, updateValue } = useForm({ name: "", email: "" });
-  const { order, addToOrder, removeFromOrder } = usePizza({
+  const {
+    order,
+    addToOrder,
+    removeFromOrder,
+    error,
+    loading,
+    message,
+    submitOrder,
+  } = usePizza({
     pizzas,
-    inputs: values,
+    values,
   });
+
+  if(message){
+    return <p>{message}</p>
+  }
   return (
     <>
       <SEO title={"Order a Pizza"} />
-      <OrderStyles>
+      <OrderStyles onSubmit={submitOrder}>
         <fieldset>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
@@ -82,8 +94,16 @@ export default function OrderPage({ data }) {
           />
         </fieldset>
         <fieldset>
-          <h3>Your order total is {formatMoney(calculateOrderTotal(order,pizzas))}</h3>
-          <button type={'submit'}>Order Ahead</button>
+          <h3>
+            Your order total is{" "}
+            {formatMoney(calculateOrderTotal(order, pizzas))}
+          </h3>
+          <div>
+            {error ? <p>Error: {}error</p>:''}
+          </div>
+          <button type={"submit"} disabled={loading}>
+            {loading ? "Placing Order..." : "Order Ahead"}
+          </button>
         </fieldset>
       </OrderStyles>
     </>
