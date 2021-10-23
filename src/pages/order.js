@@ -79,6 +79,10 @@ export default function OrderPage({ data }) {
             pizzas={pizzas}
           />
         </fieldset>
+        <fieldset>
+          <h3>Your order total is {formatMoney(calculatePizzaPrice(order,pizzas))}</h3>
+          <button type={'submit'}>Order Ahead</button>
+        </fieldset>
       </OrderStyles>
     </>
   );
