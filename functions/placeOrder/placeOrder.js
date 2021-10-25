@@ -1,18 +1,26 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
-function generateOrderEmail ({ order, total }) {
+function generateOrderEmail({ order, total }) {
   return `<div>
-  <h2>Your Recent orrder ${total}</h2>
-  <p>pleaes meet order</p>
+    <h2>Your Recent Order for ${total}</h2>
+    <p>Please start walking over, we will have your order ready in the next 20 mins.</p>
   <ul>
-    ${order.map(item => `<li>
-      <img src=`${item.thumbnail}` alt=`${item.name}`/>
+      ${order
+        .map(
+          (item) => `<li>
+        <img src='${item.thumbnail}' alt='${item.name}'/>
       ${item.size} ${item.name} - ${item.price}    
-    </li>`)}
+      </li>`
+        )
+        .join("")}
 </ul>
-<p>Your total is $${total} due</p>
-</div>
-`;
+    <p>Your total is <strong>$${total}</strong> due at pickup</p>
+    <style>
+        ul {
+          list-style: none;
+        }
+    </style>
+  </div>`;
 }
 
 // create a transport for nodemailer
@@ -25,29 +33,48 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function wait(ms = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(reject, ms);
+  });
+}
+
 exports.handler = async (event, context) => {
   const body = JSON.parse(event.body);
-  const requiredFields = ['email', 'name', 'order'];
-  for ( const field of requiredFields ) {
-    if ( !body[field] ) {
+  console.log(body);
+  // Validate the data coming in is correct
+  const requiredFields = ["email", "name", "order"];
+
+  for (const field of requiredFields) {
+    console.log(`Checking that ${field} is good`);
+    if (!body[field]) {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          message: `Oops! you missing the ${field} field`,
+          message: `Oops! You are missing the ${field} field`,
         }),
       };
     }
   }
-  // Test send an email
+
+  if (!body.order.length) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `wh would you order nothing?!`,
+      }),
+    };
+  }
+
+  // send the email
   const info = await transporter.sendMail({
-    from: 'Slicks Slices <slick@example.com',
-    to: `${body.name} ${body.email}, orders@example.com`,
-    subject: 'new order',
+    from: "Slick's Slices <slick@example.com>",
+    to: `${body.name} <${body.email}>, orders@example.com`,
+    subject: "New order!",
     html: generateOrderEmail({ order: body.order, total: body.total }),
   });
-  console.log(info);
   return {
     statusCode: 200,
-    body: JSON.stringify({ message:'Success' }),
+    body: JSON.stringify({ message: "Success" }),
   };
 };
