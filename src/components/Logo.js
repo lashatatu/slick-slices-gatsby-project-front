@@ -102,14 +102,14 @@ export default function Logo() {
   return (
     <LogoStyles className="logo">
       <div className="inner">
-        <span className="est">EST 1994</span>
+        <span className="est">EST 1988</span>
         <h1>
           <span className="slicks">
-            <span className="letter S">S</span>
-            <span className="letter l">l</span>
-            <span className="letter i">i</span>
-            <span className="letter c">c</span>
-            <span className="letter k">k</span>
+            <span className="letter S">L</span>
+            <span className="letter l">A</span>
+            <span className="letter i">S</span>
+            <span className="letter c">H</span>
+            <span className="letter k">A</span>
             <span className="letter apos">'</span>
             <span className="letter s">s</span>
           </span>
