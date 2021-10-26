@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <div>
-      <p>&copy; Lasha Tatulashvili {new Date().getFullYear()}</p>Footer
-    </div>
+    <footer>
+      <p className="center">&copy; Lasha Tatulashvili {new Date().getFullYear()}</p>Footer
+    </footer>
   );
-};
-
-export default Footer;
+}

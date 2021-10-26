@@ -31,47 +31,51 @@ export default function OrderPage({ data }) {
     values,
   });
 
-  if(message){
-    return <p>{message}</p>
+  if (message) {
+    return <p>{message}</p>;
   }
   return (
     <>
-      <SEO title='Order a Pizza!' />
+      <SEO title="Order a Pizza!" />
       <OrderStyles onSubmit={submitOrder}>
         <fieldset disabled={loading}>
           <legend>Your Info</legend>
-          <label htmlFor='name'>Name</label>
+          <label htmlFor="name">
+            Name
           <input
-            type='text'
-            name='name'
-            id='name'
+              type="text"
+              name="name"
+              id="name"
             value={values.name}
             onChange={updateValue}
           />
-          <label htmlFor='email'>Email</label>
+          </label>
+          <label htmlFor="email">
+            Email
           <input
-            type='email'
-            name='email'
-            id='email'
+              type="email"
+              name="email"
+              id="email"
             value={values.email}
             onChange={updateValue}
           />
+          </label>
           <input
             type='xinkali'
             name='xinkali'
             id='xinkali'
-            value={values.email}
+            value={values.xinkali}
             onChange={updateValue}
             className={'xinkali'}
           />
         </fieldset>
-        <fieldset disabled={loading} className='menu'>
+        <fieldset disabled={loading} className="menu">
           <legend>Menu</legend>
           {pizzas.map((pizza) => (
             <MenuItemStyles key={pizza.id}>
               <Img
-                width='50'
-                height='50'
+                width="50"
+                height="50"
                 fluid={pizza.image.asset.fluid}
                 alt={pizza.name}
               />
@@ -81,7 +85,7 @@ export default function OrderPage({ data }) {
               <div>
                 {["s", "m", "l"].map((size) => (
                   <button
-                    type='button'
+                    type="button"
                     key={size}
                     onClick={() =>
                       addToOrder({
@@ -97,7 +101,7 @@ export default function OrderPage({ data }) {
             </MenuItemStyles>
           ))}
         </fieldset>
-        <fieldset disabled={loading} className='order'>
+        <fieldset disabled={loading} className="order">
           <legend>Order</legend>
           <PizzaOrder
             order={order}
@@ -109,9 +113,12 @@ export default function OrderPage({ data }) {
           <h3>
             Your Total is {formatMoney(calculateOrderTotal(order, pizzas))}
           </h3>
-          <div>{error ? <p>Error: {error}</p> : ''}</div>
-          <button type='submit' disabled={loading}>
-            {loading ? 'Placing Order...' : 'Order Ahead'}
+          <div aria-live="polite" aria-atomic="true">{error ? <p>Error: {error}</p> : ''}</div>
+          <button type="submit" disabled={loading}>
+                        <span aria-live="assertive" aria-atomic="true">
+              {loading ? 'Placing Order...' : ''}
+            </span>
+            {loading ? '' : 'Order Ahead'}
           </button>
         </fieldset>
       </OrderStyles>

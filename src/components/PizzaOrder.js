@@ -1,10 +1,10 @@
-import React from "react";
-import MenuItemStyles from "../styles/MenuItemStyles";
-import Img from "gatsby-image";
-import calculatePizzaPrice from "../utils/calculatePizzaPrice";
-import formatMoney from "../utils/formatMoney";
+import React from 'react';
+import Img from 'gatsby-image';
+import MenuItemStyles from '../styles/MenuItemStyles';
+import calculatePizzaPrice from '../utils/calculatePizzaPrice';
+import formatMoney from '../utils/formatMoney';
 
-const PizzaOrder = ({ order, pizzas, removeFromOrder }) => {
+export default function PizzaOrder({ order, pizzas, removeFromOrder }) {
   return (
     <>
       {order.map((singleOrder, index) => {
@@ -16,18 +16,17 @@ const PizzaOrder = ({ order, pizzas, removeFromOrder }) => {
             <p>
               {formatMoney(calculatePizzaPrice(pizza.price, singleOrder.size))}
               <button
-                type={"button"}
-                className={"remove"}
+                type="button"
+                className="remove"
                 title={`Remove ${singleOrder.size} ${pizza.name} from Order`}
-                onClick={()=>removeFromOrder(index)}
-
-              >&times;</button>
+                onClick={() => removeFromOrder(index)}
+              >
+                &times;
+              </button>
             </p>
           </MenuItemStyles>
         );
       })}
     </>
   );
-};
-
-export default PizzaOrder;
+}

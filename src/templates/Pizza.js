@@ -7,13 +7,13 @@ import SEO from "../components/SEO";
 const PizzaGrid = styled.div`
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `;
 
 export default function SinglePizzaPage({ data: { pizza } }) {
   return (
     <>
-      <SEO title={pizza.name} image={pizza.image?.asset?.fluid?.src}/>
+      <SEO title={pizza.name} image={pizza.image?.asset?.fluid?.src} />
       <PizzaGrid>
         <Img fluid={pizza.image.asset.fluid} />
         <div>
@@ -30,7 +30,7 @@ export default function SinglePizzaPage({ data: { pizza } }) {
 }
 
 export const query = graphql`
-  query ($slug: String!) {
+  query($slug: String!) {
     pizza: sanityPizza(slug: { current: { eq: $slug } }) {
       name
       id

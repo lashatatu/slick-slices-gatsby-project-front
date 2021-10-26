@@ -8,7 +8,6 @@ const PizzaGridStyles = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 4rem;
   grid-auto-rows: auto auto 500px;
-  padding-top: 1rem;
 `;
 
 const PizzaStyles = styled.div`
@@ -19,7 +18,6 @@ const PizzaStyles = styled.div`
   grid-template-rows: var(--rows, subgrid);
   grid-row: span 3;
   grid-gap: 1rem;
-
   h2,
   p {
     margin: 0;
@@ -31,10 +29,10 @@ function SinglePizza({ pizza }) {
     <PizzaStyles>
       <Link to={`/pizza/${pizza.slug.current}`}>
         <h2>
-          <span className="mark">{pizza.name} </span>
+          <span className="mark">{pizza.name}</span>
         </h2>
       </Link>
-      <p>{pizza.toppings.map((topping) => topping.name).join(", ")}</p>
+      <p>{pizza.toppings.map((topping) => topping.name).join(', ')}</p>
       <Img fluid={pizza.image.asset.fluid} alt={pizza.name} />
     </PizzaStyles>
   );

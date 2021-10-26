@@ -1,16 +1,18 @@
 import React from "react";
 import { ItemsGrid, ItemStyles } from '../styles/Grids';
 
-const LoadingGrid = ({ count }) => {
+export default function LoadingGrid({ count }) {
   return (
     <ItemsGrid>
       {Array.from({ length: count }, (_, i) => (
-        <ItemStyles>
-          <p><span className={"mark"}>loading...</span></p>
+        <ItemStyles key={`loader-${i}`}>
+          <p>
+            <span className="mark">Loading...</span>
+          </p>
           <img
             src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAECAQAAADsOj3LAAAADklEQVR42mNkgANGQkwAAJoABWH6GPAAAAAASUVORK5CYII="
             className="loading"
-            alt="Loading"
+            alt=""
             width="500"
             height="400"
           />
@@ -18,6 +20,4 @@ const LoadingGrid = ({ count }) => {
       ))}
     </ItemsGrid>
   );
-};
-
-export default LoadingGrid;
+}

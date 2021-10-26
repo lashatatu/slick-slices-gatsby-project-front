@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 const gql = String.raw;
-const deets = gql`
+
+const deets = `
   name
   _id
   image {
@@ -23,9 +24,9 @@ export default function useLatestData() {
   useEffect(function () {
     // when the component loads, fetch the data
     fetch(process.env.GATSBY_GRAPHQL_ENDPOINT, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         query: gql`
@@ -49,6 +50,8 @@ export default function useLatestData() {
         setSlicemasters(res.data.StoreSettings.slicemaster);
       })
       .catch((err) => {
+        console.log('SHOOOOOT');
+        console.log(err);
       });
   }, []);
   return {

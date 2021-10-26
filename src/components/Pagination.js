@@ -46,7 +46,11 @@ export default function Pagination({
 
   return (
     <PaginationStyles>
-      <Link disabled={!hasPrevPage} to={`${base}/${prevPage}`}>
+      <Link
+        title="Prev Page"
+        disabled={!hasPrevPage}
+        to={`${base}/${prevPage}`}
+      >
         &#x2190; Prev
       </Link>
       {Array.from({ length: totalPages }).map((_, i) => (
@@ -58,11 +62,13 @@ export default function Pagination({
           {i + 1}
         </Link>
       ))}
-
-      <Link disabled={!hasNextPage} to={`${base}/${nextPage}`}>
+      <Link
+        title="Next Page"
+        disabled={!hasNextPage}
+        to={`${base}/${nextPage}`}
+      >
         Next &#8594;
       </Link>
     </PaginationStyles>
   );
-};
-
+}

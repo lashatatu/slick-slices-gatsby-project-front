@@ -3,8 +3,6 @@ const formatter = Intl.NumberFormat("ka-GE", {
   currency: "GEL",
 });
 
-const formatMoney = (cents) => {
-  return formatter.format(cents/100);
-};
-
-export default formatMoney;
+export default function formatMoney(cents) {
+  return formatter.format(cents / 100);
+}
