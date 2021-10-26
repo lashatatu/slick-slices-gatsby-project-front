@@ -49,7 +49,7 @@ const LogoStyles = styled.div`
     perspective: 100px;
   }
   .letter {
-    font-size: 5em;
+    font-size: 4.5em;
     color: var(--red);
     --scale: 1;
     --rotate: -10deg;
