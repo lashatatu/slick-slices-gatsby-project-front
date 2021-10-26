@@ -40,7 +40,7 @@ export default function HomePage() {
 
   return (
     <div className="center">
-      <SEO/>
+      <SEO title={`Lasha's slices`} description={'Best Pizzas in Town'} image={'https://cdn.sanity.io/images/o8srmjqw/production/5d85f921bbd8f5c4e7996a75b5487ac3bfd3d939-1024x683.jpg?w=1000&h=1000&fit=max'}/>
 
       <h1>The Best Pizza Downtown!</h1>
       <p>Open 11am to 11pm Every Single Day</p>
