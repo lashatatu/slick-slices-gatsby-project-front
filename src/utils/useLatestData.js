@@ -1,45 +1,43 @@
-import { useEffect, useState } from "react";
-import fetch from "isomorphic-fetch";
+import { useState, useEffect } from 'react';
 
-const useLatestData = () => {
+export default function useLatestData() {
+  // hot slices
   const [hotSlices, setHotSlices] = useState();
+  // slicemasters
   const [slicemasters, setSlicemasters] = useState();
-
+  // Use a side effect to fetcht he data from the graphql endpoint
   useEffect(function () {
+    console.log('FETCHING DATA');
+    // when the component loads, fetch the data
     fetch(process.env.GATSBY_GRAPHQL_ENDPOINT, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: {
         body: JSON.stringify({
           query: `
-          query{
-  StoreSettings(id:"downtown"){
+          query {
+  StoreSettings(id: "downtown") {
     name
-    slicemaster{
+    slicemaster {
       name
     }
-    hotSlices{
+    hotSlices {
       name
     }
   }
 }
           `,
         }),
-      },
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.data);
-        setHotSlices(res.data.StoreSettings.hotSlices)
-      setSlicemasters(res.data.StoreSettings.slicemaster)
+        setHotSlices(res.data.StoreSettings.hotSlices);
+        setSlicemasters(res.data.StoreSettings.slicemaster);
       });
   }, []);
   return {
     hotSlices,
     slicemasters,
   };
-};
-
-export default useLatestData;
+}
